@@ -1,8 +1,10 @@
+require("dotenv").config();
+
 const express = require("express");
 
 const app = express();
 
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 app.use(express.json());
 
@@ -18,6 +20,12 @@ app.post("/echo", (req, res) => {
 
 app.get("/", (req, res) => {
   res.send("Hello from express!");
+});
+
+app.post("/greet", (req, res) => {
+  const { name, age } = req.body;
+  if (!name) return res.status(400).send("Name is required");
+  res.json({ message: `Hello ${name}! You are ${age || "ageless"}.` });
 });
 
 app.listen(PORT, () => {
