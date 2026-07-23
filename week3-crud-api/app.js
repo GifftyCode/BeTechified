@@ -47,6 +47,17 @@ app.delete("/todos/:id", (req, res) => {
   res.status(204).send(); // Silent success
 });
 
+// Bonus Route
+app.get("/todos/completed", (req, res) => {
+  const completed = todos.filter((t) => t.completed);
+  res.json(completed); // Custom Read
+});
+
+// Error Handler
+app.use((err, req, res, next) => {
+  res.status(500).json({ error: "Server error!" });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
