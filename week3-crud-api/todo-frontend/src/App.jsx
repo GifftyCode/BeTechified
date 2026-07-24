@@ -3,6 +3,8 @@ import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import TodoFilters from "./components/TodoFilters";
 
+import "./App.css";
+
 const App = () => {
   const [todos, setTodos] = useState([]);
 
