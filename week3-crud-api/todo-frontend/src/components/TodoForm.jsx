@@ -1,21 +1,26 @@
 import { useState } from "react";
 
-function TodoForm() {
+function TodoForm({ onTodoCreated }) {
   const [task, setTask] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!task.trim()) return;
+
     const response = await fetch("http://localhost:4000/todos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        task,
+        task: task.trim(),
       }),
     });
-    const newTodo = await response;
-    console.log(newTodo);
+    const newTodo = await response.json();
+    onTodoCreated(newTodo);
+
+    setTask("");
   };
 
   return (

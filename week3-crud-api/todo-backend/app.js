@@ -91,7 +91,7 @@ app.post("/todos", (req, res) => {
 
   todos.push(newTodo);
 
-  res.status(200).json(newTodo);
+  res.status(201).json(newTodo);
 });
 
 app.listen(PORT, () => {

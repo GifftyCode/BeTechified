@@ -13,14 +13,20 @@ const App = () => {
       .then((response) => response.json())
       .then((data) => setTodos(data));
   }, []);
+
+  const handleTodoCreated = (newTodo) => {
+    setTodos((currentTodos) => [...currentTodos, newTodo]);
+  };
+
   return (
-    <div>
+    <div className="app">
       <header>
         <h1>My Todo App</h1>
         <p>Stay organized. Get things done.</p>
       </header>
 
-      <TodoForm />
+      <TodoForm onTodoCreated={handleTodoCreated} />
+
       <TodoFilters />
 
       <TodoList todos={todos} />
