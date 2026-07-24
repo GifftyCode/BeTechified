@@ -17,14 +17,14 @@ app.get("/todos", (req, res) => {
   res.status(200).json(todos); // Send array as JSON
 });
 
-const createTodos = (req, res) => {
-  const newTodo = { id: todos.length + 1, ...req.body }; // Auto ID
-  todos.push(newTodo);
+// const createTodos = (req, res) => {
+//   const newTodo = { id: todos.length + 1, ...req.body }; // Auto ID
+//   todos.push(newTodo);
 
-  res.status(201).json(newTodo); // Echo back
-};
+//   res.status(201).json(newTodo); // Echo back
+// };
 
-app.post("/todos", createTodos);
+// app.post("/todos", createTodos);
 
 // Patch Updte - Partial
 app.patch("/todos/:id", (req, res) => {
@@ -56,6 +56,40 @@ app.get("/todos/completed", (req, res) => {
 // Error Handler
 app.use((err, req, res, next) => {
   res.status(500).json({ error: "Server error!" });
+});
+
+// ASSIGNMENT:
+
+// 3. Array bonus: GET /todos/active (filter !completed).
+app.get("/todos/active", (req, res) => {
+  const todo = todos.filter((t) => !t.completed);
+
+  if (todo.length === 0) {
+    return res.status(404).json({ error: "No active todo found!" });
+  }
+
+  res.status(200).json(todo);
+});
+
+// 1. GET /todos/:id (single read).
+app.get("/todos/:id", (req, res) => {
+  const { id } = req.params;
+
+  const todo = todos.find((t) => t.id === Number(id));
+  if (!todo) return res.status(404).json({ error: "Todo not found!" });
+
+  res.status(200).json(todo);
+});
+
+// 2. Validation: POST requires "task" field.
+app.post("/todos", (req, res) => {
+  if (!req.body.task)
+    return res.status(400).json({ message: "Task is required!" });
+  const newTodo = { id: todos.length + 1, ...req.body };
+
+  todos.push(newTodo);
+
+  res.status(200).json(newTodo);
 });
 
 app.listen(PORT, () => {
