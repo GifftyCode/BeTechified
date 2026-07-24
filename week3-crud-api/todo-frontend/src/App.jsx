@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import TodoForm from "./components/TodoForm";
+import TodoList from "./components/TodoList";
+import TodoFilters from "./components/TodoFilters";
 
 const App = () => {
   const [todos, setTodos] = useState([]);
@@ -10,13 +13,15 @@ const App = () => {
   }, []);
   return (
     <div>
-      <h1>My Todo App</h1>
+      <header>
+        <h1>My Todo App</h1>
+        <p>Stay organized. Get things done.</p>
+      </header>
 
-      {todos.map((todo) => (
-        <div key={todo.id}>
-          <p>{todo.task}</p>
-        </div>
-      ))}
+      <TodoForm />
+      <TodoFilters />
+
+      <TodoList todos={todos} />
     </div>
   );
 };
