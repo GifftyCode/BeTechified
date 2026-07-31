@@ -18,6 +18,14 @@ const App = () => {
     setTodos((currentTodos) => [...currentTodos, newTodo]);
   };
 
+  const handleTodoUpdated = (updatedTodo) => {
+    setTodos((currentTodos) =>
+      currentTodos.map((todo) =>
+        todo.id === updatedTodo.id ? "updatedTodo" : "todo",
+      ),
+    );
+  };
+
   return (
     <div className="app">
       <header>
@@ -29,7 +37,7 @@ const App = () => {
 
       <TodoFilters />
 
-      <TodoList todos={todos} />
+      <TodoList todos={todos} onTodoUpdated={handleTodoUpdated} />
     </div>
   );
 };

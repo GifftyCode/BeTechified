@@ -1,4 +1,4 @@
-const TodoItem = ({ todo }) => {
+const TodoItem = ({ todo, onTodoUpdated }) => {
   return (
     <div className="todo-item">
       <input type="checkbox" checked={todo.completed} readOnly />
